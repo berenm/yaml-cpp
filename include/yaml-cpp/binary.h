@@ -19,7 +19,7 @@ YAML_CPP_API std::vector<unsigned char> DecodeBase64(const std::string &input);
 
 class YAML_CPP_API Binary {
  public:
-  Binary() : m_unownedData(0), m_unownedSize(0) {}
+  Binary() : m_unownedData(nullptr), m_unownedSize(0) {}
   Binary(const unsigned char *data_, std::size_t size_)
       : m_unownedData(data_), m_unownedSize(size_) {}
 
@@ -35,7 +35,7 @@ class YAML_CPP_API Binary {
       rhs.clear();
       rhs.resize(m_unownedSize);
       std::copy(m_unownedData, m_unownedData + m_unownedSize, rhs.begin());
-      m_unownedData = 0;
+      m_unownedData = nullptr;
       m_unownedSize = 0;
     } else {
       m_data.swap(rhs);

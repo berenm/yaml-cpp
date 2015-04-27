@@ -30,7 +30,7 @@ class ptr_stack : private YAML::noncopyable {
   bool empty() const { return m_data.empty(); }
 
   void push(std::unique_ptr<T> t) {
-    m_data.push_back(NULL);
+    m_data.push_back(nullptr);
     m_data.back() = t.release();
   }
   std::unique_ptr<T> pop() {
