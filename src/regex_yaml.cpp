@@ -11,8 +11,8 @@ RegEx::RegEx(char ch) : m_op(REGEX_MATCH), m_a(ch) {}
 RegEx::RegEx(char a, char z) : m_op(REGEX_RANGE), m_a(a), m_z(z) {}
 
 RegEx::RegEx(const std::string& str, REGEX_OP op) : m_op(op) {
-  for (std::size_t i = 0; i < str.size(); i++)
-    m_params.push_back(RegEx(str[i]));
+  for (auto & elem : str)
+    m_params.push_back(RegEx(elem));
 }
 
 // combination constructors

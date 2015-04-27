@@ -130,8 +130,8 @@ inline int RegEx::MatchOpRange(const Source& source) const {
 // OrOperator
 template <typename Source>
 inline int RegEx::MatchOpOr(const Source& source) const {
-  for (std::size_t i = 0; i < m_params.size(); i++) {
-    int n = m_params[i].MatchUnchecked(source);
+  for (auto & elem : m_params) {
+    int n = elem.MatchUnchecked(source);
     if (n >= 0)
       return n;
   }
@@ -145,11 +145,11 @@ inline int RegEx::MatchOpOr(const Source& source) const {
 template <typename Source>
 inline int RegEx::MatchOpAnd(const Source& source) const {
   int first = -1;
-  for (std::size_t i = 0; i < m_params.size(); i++) {
-    int n = m_params[i].MatchUnchecked(source);
+  for (auto & elem : m_params) {
+    int n = elem.MatchUnchecked(source);
     if (n == -1)
       return -1;
-    if (i == 0)
+    if (&elem == &m_params.front())
       first = n;
   }
   return first;
@@ -169,11 +169,11 @@ inline int RegEx::MatchOpNot(const Source& source) const {
 template <typename Source>
 inline int RegEx::MatchOpSeq(const Source& source) const {
   int offset = 0;
-  for (std::size_t i = 0; i < m_params.size(); i++) {
-    int n = m_params[i].Match(source + offset);  // note Match, not
-                                                 // MatchUnchecked because we
-                                                 // need to check validity after
-                                                 // the offset
+  for (auto & elem : m_params) {
+    int n = elem.Match(source + offset);  // note Match, not
+                                          // MatchUnchecked because we
+                                          // need to check validity after
+                                          // the offset
     if (n == -1)
       return -1;
     offset += n;

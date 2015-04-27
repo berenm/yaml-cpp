@@ -41,9 +41,8 @@ class node : private boost::noncopyable {
       return;
 
     m_pRef->mark_defined();
-    for (nodes::iterator it = m_dependencies.begin();
-         it != m_dependencies.end(); ++it)
-      (*it)->mark_defined();
+    for (const auto & elem : m_dependencies)
+      (elem)->mark_defined();
     m_dependencies.clear();
   }
 

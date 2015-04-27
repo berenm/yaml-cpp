@@ -202,11 +202,11 @@ bool IsValidPlainScalar(const std::string& str, FlowType::value flowType,
 
 bool IsValidSingleQuotedScalar(const std::string& str, bool escapeNonAscii) {
   // TODO: check for non-printable characters?
-  for (std::size_t i = 0; i < str.size(); i++) {
-    if (escapeNonAscii && (0x80 <= static_cast<unsigned char>(str[i]))) {
+  for (auto & elem : str) {
+    if (escapeNonAscii && (0x80 <= static_cast<unsigned char>(elem))) {
       return false;
     }
-    if (str[i] == '\n') {
+    if (elem == '\n') {
       return false;
     }
   }
@@ -220,8 +220,8 @@ bool IsValidLiteralScalar(const std::string& str, FlowType::value flowType,
   }
 
   // TODO: check for non-printable characters?
-  for (std::size_t i = 0; i < str.size(); i++) {
-    if (escapeNonAscii && (0x80 <= static_cast<unsigned char>(str[i]))) {
+  for (auto & elem : str) {
+    if (escapeNonAscii && (0x80 <= static_cast<unsigned char>(elem))) {
       return false;
     }
   }

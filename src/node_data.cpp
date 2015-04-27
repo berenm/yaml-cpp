@@ -202,9 +202,9 @@ node* node_data::get(node& key, shared_memory_holder /* pMemory */) const {
     return nullptr;
   }
 
-  for (node_map::const_iterator it = m_map.begin(); it != m_map.end(); ++it) {
-    if (it->first->is(key))
-      return it->second;
+  for (const auto & elem : m_map) {
+    if (elem.first->is(key))
+      return elem.second;
   }
 
   return nullptr;

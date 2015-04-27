@@ -12,8 +12,7 @@ namespace YAML {
 namespace Exp {
 unsigned ParseHex(const std::string& str, const Mark& mark) {
   unsigned value = 0;
-  for (std::size_t i = 0; i < str.size(); i++) {
-    char ch = str[i];
+  for (auto ch : str) {
     int digit = 0;
     if ('a' <= ch && ch <= 'f')
       digit = ch - 'a' + 10;

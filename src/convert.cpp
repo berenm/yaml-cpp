@@ -16,8 +16,8 @@ std::string tolower(const std::string& str) {
 
 template <typename T>
 bool IsEntirely(const std::string& str, T func) {
-  for (std::size_t i = 0; i < str.size(); i++)
-    if (!func(str[i]))
+  for (auto & elem : str)
+    if (!func(elem))
       return false;
 
   return true;
@@ -58,13 +58,13 @@ bool convert<bool>::decode(const Node& node, bool& rhs) {
   if (!IsFlexibleCase(node.Scalar()))
     return false;
 
-  for (unsigned i = 0; i < sizeof(names) / sizeof(names[0]); i++) {
-    if (names[i].truename == tolower(node.Scalar())) {
+  for (auto & name : names) {
+    if (name.truename == tolower(node.Scalar())) {
       rhs = true;
       return true;
     }
 
-    if (names[i].falsename == tolower(node.Scalar())) {
+    if (name.falsename == tolower(node.Scalar())) {
       rhs = false;
       return true;
     }

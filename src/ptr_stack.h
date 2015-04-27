@@ -21,8 +21,8 @@ class ptr_stack : private YAML::noncopyable {
   ~ptr_stack() { clear(); }
 
   void clear() {
-    for (std::size_t i = 0; i < m_data.size(); i++)
-      delete m_data[i];
+    for (auto & elem : m_data)
+      delete elem;
     m_data.clear();
   }
 
