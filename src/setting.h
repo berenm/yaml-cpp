@@ -20,7 +20,7 @@ class Setting {
   Setting() : m_value() {}
 
   const T get() const { return m_value; }
-  std::auto_ptr<SettingChangeBase> set(const T& value);
+  std::unique_ptr<SettingChangeBase> set(const T& value);
   void restore(const Setting<T>& oldSetting) { m_value = oldSetting.get(); }
 
  private:
@@ -49,10 +49,10 @@ class SettingChange : public SettingChangeBase {
 };
 
 template <typename T>
-inline std::auto_ptr<SettingChangeBase> Setting<T>::set(const T& value) {
-  std::auto_ptr<SettingChangeBase> pChange(new SettingChange<T>(this));
+inline std::unique_ptr<SettingChangeBase> Setting<T>::set(const T& value) {
+  std::unique_ptr<SettingChangeBase> pChange(new SettingChange<T>(this));
   m_value = value;
-  return pChange;
+  return std::move(pChange);
 }
 
 class SettingChanges : private noncopyable {
@@ -75,7 +75,7 @@ class SettingChanges : private noncopyable {
       (*it)->pop();
   }
 
-  void push(std::auto_ptr<SettingChangeBase> pSettingChange) {
+  void push(std::unique_ptr<SettingChangeBase> pSettingChange) {
     m_settingChanges.push_back(pSettingChange.release());
   }
 
