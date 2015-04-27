@@ -8,6 +8,7 @@
 #endif
 
 #include <string>
+#include <utility>
 
 namespace YAML {
 enum EMITTER_MANIP {
@@ -70,14 +71,14 @@ struct _Indent {
 inline _Indent Indent(int value) { return _Indent(value); }
 
 struct _Alias {
-  _Alias(const std::string& content_) : content(content_) {}
+  _Alias(std::string  content_) : content(std::move(content_)) {}
   std::string content;
 };
 
 inline _Alias Alias(const std::string content) { return _Alias(content); }
 
 struct _Anchor {
-  _Anchor(const std::string& content_) : content(content_) {}
+  _Anchor(std::string  content_) : content(std::move(content_)) {}
   std::string content;
 };
 
@@ -88,9 +89,9 @@ struct _Tag {
     enum value { Verbatim, PrimaryHandle, NamedHandle };
   };
 
-  explicit _Tag(const std::string& prefix_, const std::string& content_,
+  explicit _Tag(std::string  prefix_, std::string  content_,
                 Type::value type_)
-      : prefix(prefix_), content(content_), type(type_) {}
+      : prefix(std::move(prefix_)), content(std::move(content_)), type(type_) {}
   std::string prefix;
   std::string content;
   Type::value type;
@@ -113,7 +114,7 @@ inline _Tag SecondaryTag(const std::string content) {
 }
 
 struct _Comment {
-  _Comment(const std::string& content_) : content(content_) {}
+  _Comment(std::string  content_) : content(std::move(content_)) {}
   std::string content;
 };
 

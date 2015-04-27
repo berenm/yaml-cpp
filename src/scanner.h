@@ -84,7 +84,7 @@ class Scanner {
   const RegEx &GetValueRegex() const;
 
   struct SimpleKey {
-    SimpleKey(const Mark &mark_, std::size_t flowLevel_);
+    SimpleKey(Mark mark_, std::size_t flowLevel_);
 
     void Validate();
     void Invalidate();

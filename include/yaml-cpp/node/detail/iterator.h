@@ -33,7 +33,7 @@ class iterator_base
  public:
   iterator_base() {}
   explicit iterator_base(base_type rhs, shared_memory_holder pMemory)
-      : iterator_base::iterator_adaptor_(rhs), m_pMemory(pMemory) {}
+      : iterator_base::iterator_adaptor_(rhs), m_pMemory(std::move(pMemory)) {}
 
   template <class W>
   iterator_base(const iterator_base<W>& rhs,

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <utility>
 
 namespace YAML {
 const std::string TokenNames[] = {
@@ -47,8 +48,8 @@ struct Token {
   };
 
   // data
-  Token(TYPE type_, const Mark& mark_)
-      : status(VALID), type(type_), mark(mark_), data(0) {}
+  Token(TYPE type_, Mark  mark_)
+      : status(VALID), type(type_), mark(std::move(mark_)), data(0) {}
 
   friend std::ostream& operator<<(std::ostream& out, const Token& token) {
     out << TokenNames[token.type] << std::string(": ") << token.value;

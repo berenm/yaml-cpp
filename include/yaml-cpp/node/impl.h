@@ -45,7 +45,7 @@ inline Node::Node(const Node& rhs)
 inline Node::Node(Zombie) : m_isValid(false), m_pNode(nullptr) {}
 
 inline Node::Node(detail::node& node, detail::shared_memory_holder pMemory)
-    : m_isValid(true), m_pMemory(pMemory), m_pNode(&node) {}
+    : m_isValid(true), m_pMemory(std::move(pMemory)), m_pNode(&node) {}
 
 inline Node::~Node() {}
 

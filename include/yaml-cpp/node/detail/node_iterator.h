@@ -67,14 +67,14 @@ class node_iterator_base
       : m_type(iterator_type::None), m_seqIt(), m_mapIt(), m_mapEnd() {}
   explicit node_iterator_base(SeqIter seqIt)
       : m_type(iterator_type::Sequence),
-        m_seqIt(seqIt),
+        m_seqIt(std::move(seqIt)),
         m_mapIt(),
         m_mapEnd() {}
   explicit node_iterator_base(MapIter mapIt, MapIter mapEnd)
       : m_type(iterator_type::Map),
         m_seqIt(),
-        m_mapIt(mapIt),
-        m_mapEnd(mapEnd) {
+        m_mapIt(std::move(mapIt)),
+        m_mapEnd(std::move(mapEnd)) {
     m_mapIt = increment_until_defined(m_mapIt);
   }
 
