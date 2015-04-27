@@ -82,38 +82,38 @@ class GraphBuilder : public GraphBuilderInterface {
 
   GraphBuilderInterface &AsBuilderInterface() { return *this; }
 
-  virtual void *NewNull(const Mark &mark, void *pParentNode) {
+  virtual void *NewNull(const Mark &mark, void *pParentNode) override {
     return CheckType<Node>(m_impl.NewNull(mark, AsNode(pParentNode)));
   }
 
   virtual void *NewScalar(const Mark &mark, const std::string &tag,
-                          void *pParentNode, const std::string &value) {
+                          void *pParentNode, const std::string &value) override {
     return CheckType<Node>(
         m_impl.NewScalar(mark, tag, AsNode(pParentNode), value));
   }
 
   virtual void *NewSequence(const Mark &mark, const std::string &tag,
-                            void *pParentNode) {
+                            void *pParentNode) override {
     return CheckType<Sequence>(
         m_impl.NewSequence(mark, tag, AsNode(pParentNode)));
   }
-  virtual void AppendToSequence(void *pSequence, void *pNode) {
+  virtual void AppendToSequence(void *pSequence, void *pNode) override {
     m_impl.AppendToSequence(AsSequence(pSequence), AsNode(pNode));
   }
-  virtual void SequenceComplete(void *pSequence) {
+  virtual void SequenceComplete(void *pSequence) override {
     m_impl.SequenceComplete(AsSequence(pSequence));
   }
 
   virtual void *NewMap(const Mark &mark, const std::string &tag,
-                       void *pParentNode) {
+                       void *pParentNode) override {
     return CheckType<Map>(m_impl.NewMap(mark, tag, AsNode(pParentNode)));
   }
-  virtual void AssignInMap(void *pMap, void *pKeyNode, void *pValueNode) {
+  virtual void AssignInMap(void *pMap, void *pKeyNode, void *pValueNode) override {
     m_impl.AssignInMap(AsMap(pMap), AsNode(pKeyNode), AsNode(pValueNode));
   }
-  virtual void MapComplete(void *pMap) { m_impl.MapComplete(AsMap(pMap)); }
+  virtual void MapComplete(void *pMap) override { m_impl.MapComplete(AsMap(pMap)); }
 
-  virtual void *AnchorReference(const Mark &mark, void *pNode) {
+  virtual void *AnchorReference(const Mark &mark, void *pNode) override {
     return CheckType<Node>(m_impl.AnchorReference(mark, AsNode(pNode)));
   }
 
